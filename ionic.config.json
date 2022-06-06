@@ -1,0 +1,7 @@
+{
+  "name": "awana-info",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}

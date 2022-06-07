@@ -53,6 +53,13 @@ const Menu: React.FC = () => {
 			mdIcon: peopleSharp,
 			showIf: user !== null
 		},
+		{
+			title: 'Scan',
+			url: '/scan',
+			iosIcon: peopleOutline,
+			mdIcon: peopleSharp,
+			showIf: true
+		},
 	], [user]);
 
 	const [ appPages, setAppPages ] = useState<AppPage[]>(pages);

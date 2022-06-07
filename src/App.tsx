@@ -29,6 +29,7 @@ import GroupTree from './pages/GroupTree'
 import NotFound from './pages/NotFound'
 import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
+import Scan from './pages/Scan'
 
 setupIonicReact()
 
@@ -51,6 +52,7 @@ const App: React.FC = () => {
 							<Route path='/group/:id' exact={true} component={Group} />
 							<Route path='/privacy' exact={true} component={Privacy} />
 							<Route path='/terms' exact={true} component={Terms} />
+							<Route path='/scan' exact={true} component={Scan} />
 							<Route component={NotFound} />
 						</Switch>
 					</IonRouterOutlet>

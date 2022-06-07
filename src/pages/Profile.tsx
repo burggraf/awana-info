@@ -26,7 +26,7 @@ const supabaseDataService = SupabaseDataService.getInstance()
 const Profile: React.FC = () => {
 	const [user, setUser] = useState<User | null>(null)
 	const [profile, setProfile] = useState<any>(null)
-	const [avatar, getAvatar] = useState<string | null>(null)
+	// const [avatar, getAvatar] = useState<string | null>(null)
 	useEffect(() => {
 		const userSubscription = SupabaseAuthService.user.subscribe(setUser)
 		const profileSubscription = SupabaseAuthService.profile.subscribe(setProfile)
@@ -197,7 +197,6 @@ const Profile: React.FC = () => {
 							class='inputBox'></IonTextarea>
 					</IonItem>
 				</IonList>
-				Avatar: {avatar}
 			</IonContent>
 		</IonPage>
 	)

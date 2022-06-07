@@ -57,6 +57,7 @@ const Profile: React.FC = () => {
 				if (identity.identity_data?.picture) {
 					picture = identity.identity_data.picture
 				}
+				return null
 			})
 		}
 

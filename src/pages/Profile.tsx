@@ -1,4 +1,5 @@
 import {
+	IonAvatar,
 	IonButton,
 	IonButtons,
 	IonContent,
@@ -19,22 +20,22 @@ import SupabaseDataService from '../services/supabase.data.service'
 import { SupabaseAuthService } from 'ionic-react-supabase-login'
 import { useEffect, useState } from 'react'
 import { User } from '@supabase/supabase-js'
-import { checkmarkOutline } from 'ionicons/icons'
+import { checkmarkOutline, personOutline, personSharp } from 'ionicons/icons'
 const supabaseDataService = SupabaseDataService.getInstance()
 
 const Profile: React.FC = () => {
+	const [user, setUser] = useState<User | null>(null)
+	const [profile, setProfile] = useState<any>(null)
+	const [avatar, getAvatar] = useState<string | null>(null)
+	useEffect(() => {
+		const userSubscription = SupabaseAuthService.user.subscribe(setUser)
+		const profileSubscription = SupabaseAuthService.profile.subscribe(setProfile)
 
-    const [ user, setUser ] = useState<User | null>(null);
-    const [ profile, setProfile ] = useState<any>(null);
-    useEffect(() => {
-	  const userSubscription = SupabaseAuthService.user.subscribe(setUser);
-	  const profileSubscription = SupabaseAuthService.profile.subscribe(setProfile);
-
-      return () => {
-		  userSubscription.unsubscribe();
-		  profileSubscription.unsubscribe();
-      }
-    },[])
+		return () => {
+			userSubscription.unsubscribe()
+			profileSubscription.unsubscribe()
+		}
+	}, [])
 
 	useEffect(() => {
 		if (user && profile) {
@@ -45,6 +46,29 @@ const Profile: React.FC = () => {
 	// const { name } = useParams<{ name: string; }>();
 	const save = async () => {
 		await supabaseDataService.saveProfile(profile)
+	}
+
+	const findAvatar = (user: User | null, profile: any | null) => {
+		let picture = ''
+		if (profile && profile.avatar) {
+			picture = profile.avatar
+		} else {
+			user?.identities?.map((identity) => {
+				if (identity.identity_data?.picture) {
+					picture = identity.identity_data.picture
+				}
+			})
+		}
+
+		return (
+			<IonAvatar>
+				{picture ? (
+					<img src={picture} />
+				) : (
+					<IonIcon size='large' ios={personOutline} md={personSharp}></IonIcon>
+				)}
+			</IonAvatar>
+		)
 	}
 
 	return (
@@ -66,8 +90,16 @@ const Profile: React.FC = () => {
 			<IonContent className='ion-padding'>
 				{/* <pre>{JSON.stringify(profile, null, 2)}</pre> */}
 				<IonList>
-					<IonItem lines="none">
-						<IonLabel slot='start' class="itemLabel">First Name</IonLabel>
+					<IonItem lines='none' detail={false}>
+						{findAvatar(user, profile)}
+						<IonLabel className='ion-text-center ion-text-wrap'>
+							<strong>{user?.email || 'no user'}</strong>
+						</IonLabel>
+					</IonItem>
+					<IonItem lines='none'>
+						<IonLabel slot='start' class='itemLabel'>
+							First Name
+						</IonLabel>
 						<IonInput
 							type='text'
 							placeholder={'First Name'}
@@ -75,26 +107,32 @@ const Profile: React.FC = () => {
 							value={profile?.firstname!}
 							class='inputBox'></IonInput>
 					</IonItem>
-					<IonItem lines="none">
-						<IonLabel slot='start' class="itemLabel">Last Name</IonLabel>
+					<IonItem lines='none'>
+						<IonLabel slot='start' class='itemLabel'>
+							Last Name
+						</IonLabel>
 						<IonInput
-							type='text'              
+							type='text'
 							placeholder={'Last Name'}
 							onIonChange={(e: any) => setProfile({ ...profile, lastname: e.detail.value! })}
 							value={profile?.lastname!}
 							class='inputBox'></IonInput>
 					</IonItem>
-					<IonItem lines="none">
-						<IonLabel slot='start' class="itemLabel">Email</IonLabel>
+					<IonItem lines='none'>
+						<IonLabel slot='start' class='itemLabel'>
+							Email
+						</IonLabel>
 						<IonInput
 							type='text'
-              disabled={true}
+							disabled={true}
 							placeholder={'Email'}
 							value={profile?.email!}
 							class='inputBox'></IonInput>
 					</IonItem>
-					<IonItem lines="none">
-						<IonLabel slot='start' class="itemLabel">Phone</IonLabel>
+					<IonItem lines='none'>
+						<IonLabel slot='start' class='itemLabel'>
+							Phone
+						</IonLabel>
 						<IonInput
 							type='number'
 							placeholder={'Phone'}
@@ -102,8 +140,10 @@ const Profile: React.FC = () => {
 							value={profile?.phone!}
 							class='inputBox'></IonInput>
 					</IonItem>
-					<IonItem lines="none">
-						<IonLabel slot='start' class="itemLabel">Address</IonLabel>
+					<IonItem lines='none'>
+						<IonLabel slot='start' class='itemLabel'>
+							Address
+						</IonLabel>
 						<IonInput
 							type='text'
 							placeholder={'Address'}
@@ -111,8 +151,10 @@ const Profile: React.FC = () => {
 							value={profile?.address!}
 							class='inputBox'></IonInput>
 					</IonItem>
-					<IonItem lines="none">
-						<IonLabel slot='start' class="itemLabel">City</IonLabel>
+					<IonItem lines='none'>
+						<IonLabel slot='start' class='itemLabel'>
+							City
+						</IonLabel>
 						<IonInput
 							type='text'
 							placeholder={'City'}
@@ -120,8 +162,10 @@ const Profile: React.FC = () => {
 							value={profile?.city!}
 							class='inputBox'></IonInput>
 					</IonItem>
-					<IonItem lines="none">
-						<IonLabel slot='start' class="itemLabel">State</IonLabel>
+					<IonItem lines='none'>
+						<IonLabel slot='start' class='itemLabel'>
+							State
+						</IonLabel>
 						<IonInput
 							type='text'
 							placeholder={'State'}
@@ -129,8 +173,10 @@ const Profile: React.FC = () => {
 							value={profile?.state!}
 							class='inputBox'></IonInput>
 					</IonItem>
-					<IonItem lines="none">
-						<IonLabel slot='start' class="itemLabel">Zip</IonLabel>
+					<IonItem lines='none'>
+						<IonLabel slot='start' class='itemLabel'>
+							Zip
+						</IonLabel>
 						<IonInput
 							type='text'
 							placeholder={'Postal Code'}
@@ -138,17 +184,20 @@ const Profile: React.FC = () => {
 							value={profile?.postal_code!}
 							class='inputBox'></IonInput>
 					</IonItem>
-					<IonItem lines="none">
-						<IonLabel slot='start' class="itemLabel">About me...</IonLabel>
+					<IonItem lines='none'>
+						<IonLabel slot='start' class='itemLabel'>
+							About me...
+						</IonLabel>
 						<IonTextarea
-              rows={3}
-              autoGrow={true}
+							rows={3}
+							autoGrow={true}
 							placeholder={'What would you like to tell us about yourself?'}
 							onIonChange={(e: any) => setProfile({ ...profile, bio: e.detail.value! })}
 							value={profile?.bio!}
 							class='inputBox'></IonTextarea>
 					</IonItem>
 				</IonList>
+				Avatar: {avatar}
 			</IonContent>
 		</IonPage>
 	)

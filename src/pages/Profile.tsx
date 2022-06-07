@@ -64,7 +64,7 @@ const Profile: React.FC = () => {
 		return (
 			<IonAvatar>
 				{picture ? (
-					<img src={picture} />
+					<img src={picture} alt="avatar" />
 				) : (
 					<IonIcon size='large' ios={personOutline} md={personSharp}></IonIcon>
 				)}

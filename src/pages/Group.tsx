@@ -250,9 +250,20 @@ const Group: React.FC = () => {
 								value={group?.description!}
 								class='inputBox'></IonInput>
 						</IonItem>
+						<IonItem lines='none'>
+							<IonLabel slot='start' class='itemLabel'>
+								Sort Order
+							</IonLabel>
+							<IonInput
+								type='text'
+								placeholder={'0'}
+								onIonChange={(e: any) => setGroup({ ...group, sort_order: e.detail.value! })}
+								value={group?.sort_order!}
+								class='inputBox'></IonInput>
+						</IonItem>
 					</IonList>
 				</div>
-				{/* <pre>{JSON.stringify(group, null, 2)}</pre> */}
+				{ (id.substring(0,3) !== 'new') &&
 				<div className='ion-padding'>
 					<div className='ion-padding' style={{ border: '1px solid' }}>
 						<div className='ion-padding'>
@@ -303,12 +314,10 @@ const Group: React.FC = () => {
 									)
 								})}
 							</IonGrid>
-							{/* <pre>
-            {JSON.stringify(invites, null, 2)}
-          </pre> */}
 						</div>
 					</div>
 				</div>
+				}
 			</IonContent>
 			{childGroupCount === 0 && (
 				<IonFooter>

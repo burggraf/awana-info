@@ -18,7 +18,8 @@ CREATE TABLE "public"."groups" (
     "icon" "text",
     "info" "jsonb",
     "root_id" "uuid",
-    "level" integer DEFAULT 0 NOT NULL
+    "level" integer DEFAULT 0 NOT NULL,
+    "sort_order" integer DEFAULT 0
 );
 ALTER TABLE "public"."groups" OWNER TO "supabase_admin";
 COMMENT ON TABLE "public"."groups" IS 'organizational groups';

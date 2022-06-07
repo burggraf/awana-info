@@ -1,6 +1,6 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenuButton, IonNote, IonPage, IonTitle, IonToolbar } from '@ionic/react'
 import { SupabaseAuthService } from 'ionic-react-supabase-login'
-import { addCircleOutline, addOutline, leafOutline } from 'ionicons/icons'
+import { addCircleOutline, addOutline, leafOutline, peopleOutline } from 'ionicons/icons'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 
@@ -27,21 +27,8 @@ const Groups: React.FC = () => {
 			if (!supabaseDataService.isConnected()) {
 				await supabaseDataService.connect() // wait for db connection
 			}
-			// supabaseDataService
-			// 	.getGroups(user.id)
-			// 	.then((groups_data: any) => {
-			// 		console.log('got data', groups_data.data)
-			// 		const data = groups_data?.data || [];
-			// 		const newData = data.sort((a: any, b: any) => 
-			// 			(a.parent_id > b.parent_id) ? 1 : (a.parent_id === b.parent_id) ? ((a.name > b.name) ? 1 : -1) : -1 );
-			// 		console.log('newData', newData)
-			// 		setGroups(data)
-			// 	})
-			// 	.catch((err: any) => {
-			// 		console.log('error getting groups', err)
-			// 	});
-			const { data, error } = await supabaseDataService.groups_get_groups_for_user(user_id);
-			console.log('groups_get_groups_for_user: data, error', data, error);
+			const { data, error } = await supabaseDataService.groups_get_root_groups_for_user(user_id);
+			console.log('groups_get_root_groups_for_user: data, error', data, error);
 			if (error) {
 				console.error('error getting groups', error);
 			} else {
@@ -94,21 +81,15 @@ const Groups: React.FC = () => {
 					<IonList>
 					{groups.map((group: any, idx: number) => {
 						return (
-							<IonItem key={group?.id} onClick={() => gotoGroup(group?.id)} lines="full">
+							<IonItem key={group?.id} onClick={() => gotoTree(group?.id)} lines="full">
 								<IonLabel class="ion-text-wrap">
-									{/* { // repeat indent based on group.level
-										Array(group?.level).fill(0).map((_, index) => <IonIcon key={Math.random()} />)
-									}									 */}
 									{group?.name}<br/>
 									<IonNote>
-										{/* { // repeat indent based on group.level
-											Array(group?.level).fill(0).map((_, index) => <IonIcon key={Math.random()} />)
-										}									 */}
 										{group?.description}
 									</IonNote>
 								</IonLabel>
-								<IonButton fill='clear' slot='end' color='primary' onClick={(e) => {gotoTree(group?.id);e.stopPropagation()}}>
-									<IonIcon size='large' icon={leafOutline}></IonIcon>
+								<IonButton fill='clear' slot='end' color='primary' onClick={(e) => {gotoGroup(group?.id);e.stopPropagation()}}>
+									<IonIcon size='large' icon={peopleOutline}></IonIcon>
 								</IonButton>
 								<IonButton fill='clear' slot='end' color='primary' onClick={(e) => {addNew('new-' + group?.id);e.stopPropagation()}}>
 									<IonIcon size='large' icon={addOutline}></IonIcon>

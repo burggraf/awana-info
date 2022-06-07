@@ -1,6 +1,6 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenuButton, IonNote, IonPage, IonTitle, IonToolbar } from '@ionic/react'
 import { SupabaseAuthService } from 'ionic-react-supabase-login'
-import { addCircleOutline, addOutline, leafOutline, peopleOutline } from 'ionicons/icons'
+import { addCircleOutline, addOutline, peopleOutline } from 'ionicons/icons'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 

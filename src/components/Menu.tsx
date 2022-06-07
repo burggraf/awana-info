@@ -13,7 +13,7 @@ import {
 import { Login, ResetPassword, User, SupabaseAuthService} from 'ionic-react-supabase-login';
 import { useEffect, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { archiveOutline, archiveSharp, barChartOutline, barChartSharp, bookmarkOutline, heartOutline, heartSharp, mailOutline, mailSharp, paperPlaneOutline, paperPlaneSharp, peopleOutline, peopleSharp, trashOutline, trashSharp, warningOutline, warningSharp } from 'ionicons/icons';
+import { barChartOutline, barChartSharp, peopleOutline, peopleSharp } from 'ionicons/icons';
 import SupabaseDataService from '../services/supabase.data.service'
 
 import info from '../../package.json';

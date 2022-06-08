@@ -21,6 +21,7 @@
     "@types/react-router": "^5.1.11",
     "@types/react-router-dom": "^5.1.7",
     "gridjs": "^5.0.2",
+    "gridjs-react": "^5.0.2",
     "ionic-react-supabase-login": "^1.0.46",
     "ionicons": "^6.0.2",
     "jspdf": "^2.5.1",

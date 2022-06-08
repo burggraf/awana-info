@@ -59,7 +59,7 @@ const GroupTree: React.FC = () => {
                     <IonButtons slot='start'>
 						<IonBackButton defaultHref='/groups' />
 					</IonButtons>
-					<IonTitle>Group Organization</IonTitle>
+					<IonTitle>{groups[0]?.name || 'Group Organization'}</IonTitle>
 					<IonButtons slot='end'>
 						<IonButton color='primary' onClick={() => addNew()}>
 							<IonIcon size='large' icon={addCircleOutline}></IonIcon>

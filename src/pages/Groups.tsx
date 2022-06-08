@@ -1,6 +1,6 @@
 import { IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonMenuButton, IonNote, IonPage, IonTitle, IonToolbar } from '@ionic/react'
 import { SupabaseAuthService } from 'ionic-react-supabase-login'
-import { addCircleOutline, addOutline, peopleOutline } from 'ionicons/icons'
+import { addCircleOutline, addOutline, addSharp, peopleOutline, peopleSharp } from 'ionicons/icons'
 import { useEffect, useState } from 'react'
 import { useHistory } from 'react-router'
 
@@ -89,10 +89,10 @@ const Groups: React.FC = () => {
 									</IonNote>
 								</IonLabel>
 								<IonButton fill='clear' slot='end' color='primary' onClick={(e) => {gotoGroup(group?.id);e.stopPropagation()}}>
-									<IonIcon size='large' icon={peopleOutline}></IonIcon>
+									<IonIcon size='large' ios={peopleOutline} md={peopleSharp}></IonIcon>
 								</IonButton>
 								<IonButton fill='clear' slot='end' color='primary' onClick={(e) => {addNew('new-' + group?.id);e.stopPropagation()}}>
-									<IonIcon size='large' icon={addOutline}></IonIcon>
+									<IonIcon size='large' ios={addOutline} md={addSharp}></IonIcon>
 								</IonButton>
 							</IonItem>
 						)

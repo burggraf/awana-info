@@ -1,6 +1,6 @@
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonLabel, IonList, IonNote, IonPage, IonTitle, IonToolbar } from '@ionic/react'
 import { SupabaseAuthService } from 'ionic-react-supabase-login'
-import { addCircleOutline, addOutline } from 'ionicons/icons'
+import { addCircleOutline, addOutline, addSharp, peopleOutline, peopleSharp } from 'ionicons/icons'
 import { useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 
@@ -42,6 +42,9 @@ const GroupTree: React.FC = () => {
 	const gotoGroup = (id: string) => {
 		history.push(`/group/${id}`)
 	}
+	const gotoTree = (id: string) => {
+		history.push(`/grouptree/${id}`)
+	}
 	const addNew = async (parentid?: string) => {
 		if (parentid) {
 			history.push('/group/' + parentid)
@@ -75,7 +78,7 @@ const GroupTree: React.FC = () => {
 					<IonList>
 					{groups.map((group: any, idx: number) => {
 						return (
-							<IonItem key={group?.id} onClick={() => gotoGroup(group?.id)} lines="full">
+							<IonItem key={group?.id} onClick={() => gotoTree(group?.id)} lines="full">
 								<IonLabel class="ion-text-wrap">
 									{ // repeat indent based on group.level
 										Array(group?.level).fill(0).map((_, index) => <IonIcon key={Math.random()} />)
@@ -88,8 +91,11 @@ const GroupTree: React.FC = () => {
 										{group?.description}
 									</IonNote>
 								</IonLabel>
+								<IonButton fill='clear' slot='end' color='primary' onClick={(e) => {gotoGroup(group?.id);e.stopPropagation()}}>
+									<IonIcon size='large' ios={peopleOutline} md={peopleSharp}></IonIcon>
+								</IonButton>
 								<IonButton fill='clear' slot='end' color='primary' onClick={(e) => {addNew('new-' + group?.id);e.stopPropagation()}}>
-									<IonIcon size='large' icon={addOutline}></IonIcon>
+									<IonIcon size='large' ios={addOutline} md={addSharp}></IonIcon>
 								</IonButton>
 							</IonItem>
 						)

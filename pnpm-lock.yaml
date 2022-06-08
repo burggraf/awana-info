@@ -7,8 +7,8 @@ specifiers:
   '@capacitor/haptics': 1.1.4
   '@capacitor/keyboard': 1.2.2
   '@capacitor/status-bar': 1.0.8
-  '@ionic/react': ^6.0.0
-  '@ionic/react-router': ^6.0.0
+  '@ionic/react': ^6.1.9
+  '@ionic/react-router': ^6.1.9
   '@supabase/supabase-js': ^1.35.3
   '@testing-library/jest-dom': ^5.11.9
   '@testing-library/react': ^11.2.5
@@ -20,7 +20,7 @@ specifiers:
   '@types/react-router': ^5.1.11
   '@types/react-router-dom': ^5.1.7
   ionic-react-supabase-login: ^1.0.46
-  ionicons: ^5.4.0
+  ionicons: ^6.0.2
   jspdf: ^2.5.1
   jspdf-autotable: ^3.5.25
   react: ^17.0.1
@@ -50,8 +50,8 @@ dependencies:
   '@capacitor/haptics': 1.1.4_@capacitor+core@3.5.1
   '@capacitor/keyboard': 1.2.2_@capacitor+core@3.5.1
   '@capacitor/status-bar': 1.0.8_@capacitor+core@3.5.1
-  '@ionic/react': 6.1.8_sfoxds7t5ydpegc3knd667wn6m
-  '@ionic/react-router': 6.1.8_tf2fh75nphjjkupmfjxhmflcfq
+  '@ionic/react': 6.1.9_sfoxds7t5ydpegc3knd667wn6m
+  '@ionic/react-router': 6.1.9_tf2fh75nphjjkupmfjxhmflcfq
   '@supabase/supabase-js': 1.35.3
   '@testing-library/jest-dom': 5.16.4
   '@testing-library/react': 11.2.7_sfoxds7t5ydpegc3knd667wn6m
@@ -63,7 +63,7 @@ dependencies:
   '@types/react-router': 5.1.18
   '@types/react-router-dom': 5.3.3
   ionic-react-supabase-login: 1.0.46_sfoxds7t5ydpegc3knd667wn6m
-  ionicons: 5.5.4
+  ionicons: 6.0.2
   jspdf: 2.5.1
   jspdf-autotable: 3.5.25_jspdf@2.5.1
   react: 17.0.2
@@ -1714,23 +1714,23 @@ packages:
       - supports-color
     dev: true
 
-  /@ionic/core/6.1.8:
-    resolution: {integrity: sha512-EMYebwmS4UogpNrTyuCgIETKwE7XA93V7X3YacK2UArm1Xf98w3FsnfAYeMaUqY93bDxih/CSKm3NpUhVWP44A==}
+  /@ionic/core/6.1.9:
+    resolution: {integrity: sha512-EaClsiGB/E9wPkujnrMZ71BLVcA8t6DBZu+caJMmqPLF/64S37CiyfrrMbL1UnxDWP2TXsPFH3seWl6Ek/W1bw==}
     dependencies:
       '@stencil/core': 2.16.1
       ionicons: 6.0.2
       tslib: 2.4.0
     dev: false
 
-  /@ionic/react-router/6.1.8_qtdqgstntftzspw6ku5s36pia4:
-    resolution: {integrity: sha512-z6EE/HMYaO+R+9bDV7P9ETYDYDlrP1F04ioZDcMP/Fa8NEFFcyUK02X4tL/f+JvIyhdyf6V6z76SIBizdP9rmw==}
+  /@ionic/react-router/6.1.9_qtdqgstntftzspw6ku5s36pia4:
+    resolution: {integrity: sha512-+UYxusUOfG0KXZlJk210lWRFuCyBGVyND3koVTZdNcusykdPth42TKW/mJrhjY4Szs7YVq9UNaefB80eAz6Ygg==}
     peerDependencies:
       react: '>=16.8.6'
       react-dom: '>=16.8.6'
       react-router: ^5.0.1
       react-router-dom: ^5.0.1
     dependencies:
-      '@ionic/react': 6.1.8_sfoxds7t5ydpegc3knd667wn6m
+      '@ionic/react': 6.1.9_sfoxds7t5ydpegc3knd667wn6m
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router: 6.3.0_react@17.0.2
@@ -1738,15 +1738,15 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@ionic/react-router/6.1.8_tf2fh75nphjjkupmfjxhmflcfq:
-    resolution: {integrity: sha512-z6EE/HMYaO+R+9bDV7P9ETYDYDlrP1F04ioZDcMP/Fa8NEFFcyUK02X4tL/f+JvIyhdyf6V6z76SIBizdP9rmw==}
+  /@ionic/react-router/6.1.9_tf2fh75nphjjkupmfjxhmflcfq:
+    resolution: {integrity: sha512-+UYxusUOfG0KXZlJk210lWRFuCyBGVyND3koVTZdNcusykdPth42TKW/mJrhjY4Szs7YVq9UNaefB80eAz6Ygg==}
     peerDependencies:
       react: '>=16.8.6'
       react-dom: '>=16.8.6'
       react-router: ^5.0.1
       react-router-dom: ^5.0.1
     dependencies:
-      '@ionic/react': 6.1.8_sfoxds7t5ydpegc3knd667wn6m
+      '@ionic/react': 6.1.9_sfoxds7t5ydpegc3knd667wn6m
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router: 5.3.3_react@17.0.2
@@ -1754,13 +1754,13 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /@ionic/react/6.1.8_sfoxds7t5ydpegc3knd667wn6m:
-    resolution: {integrity: sha512-GseGRtoGTz1CEyUJX3DhcWKxXZ4IVjiWrMO/skIR/gb/0GRYVJ9HSobXozLesFEN6hSJTnVIwJTgygWA9PiCfA==}
+  /@ionic/react/6.1.9_sfoxds7t5ydpegc3knd667wn6m:
+    resolution: {integrity: sha512-0EqCL5hBjSW9OIoopWRz+nH56wKufiT/oaK47qurRnl/b2JxDuSBWcpzCMeSI6H5LKkEY+zM3CD9rQpkQiZNLw==}
     peerDependencies:
       react: '>=16.8.6'
       react-dom: '>=16.8.6'
     dependencies:
-      '@ionic/core': 6.1.8
+      '@ionic/core': 6.1.9
       ionicons: 6.0.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -2295,12 +2295,6 @@ packages:
     resolution: {integrity: sha512-OAPJUAtgeINhh/TAlUID4QTs53Njm7xzddaVlEs/SXwgtiD1tW22zAB/W1wdqfrpmikgaWQ9Fw6Ws+hsiRm5Vg==}
     dependencies:
       '@sinonjs/commons': 1.8.3
-    dev: false
-
-  /@stencil/core/2.10.0:
-    resolution: {integrity: sha512-15rWMTPQ/sp0lSV82HVCXkIya3QLN+uBl7pqK4JnTrp4HiLrzLmNbWjbvgCs55gw0lULbCIGbRIEsFz+Pe/Q+A==}
-    engines: {node: '>=12.10.0', npm: '>=6.0.0'}
-    hasBin: true
     dev: false
 
   /@stencil/core/2.16.1:
@@ -6047,8 +6041,8 @@ packages:
       react-dom: '>=17.0.2'
       styled-components: '>=5.3.0'
     dependencies:
-      '@ionic/react': 6.1.8_sfoxds7t5ydpegc3knd667wn6m
-      '@ionic/react-router': 6.1.8_qtdqgstntftzspw6ku5s36pia4
+      '@ionic/react': 6.1.9_sfoxds7t5ydpegc3knd667wn6m
+      '@ionic/react-router': 6.1.9_qtdqgstntftzspw6ku5s36pia4
       '@supabase/supabase-js': 1.35.3
       ionicons: 6.0.2
       react: 17.0.2
@@ -6059,12 +6053,6 @@ packages:
     transitivePeerDependencies:
       - encoding
       - supports-color
-    dev: false
-
-  /ionicons/5.5.4:
-    resolution: {integrity: sha512-3ph8X9my3inhabWEZ7N0XRA0MnnNQ1v9a602mLNgWsIXnxE9G5BybIZ/pws/OZZ/hoNlvSjk801N03yL9/FNgQ==}
-    dependencies:
-      '@stencil/core': 2.10.0
     dev: false
 
   /ionicons/6.0.2:

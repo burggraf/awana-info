@@ -42,6 +42,7 @@ const Report: React.FC = () => {
 		autoTable(doc, {
 			head: [['Name', 'Email', 'Country']],
 			body: data,
+            headStyles: { fillColor: [211, 211, 211], textColor: 'black' }, // lightgray
 			didDrawPage: function (data) {
 				// Header
 				doc.setFontSize(20)
@@ -49,7 +50,8 @@ const Report: React.FC = () => {
 				if (base64Img) {
 					doc.addImage(base64Img, 'JPEG', data.settings.margin.left, 15, 10, 10)
 				}
-				doc.text('Test Report with multiple pages', data.settings.margin.left + 15, 22)
+				//doc.text('Test Report with multiple pages', data.settings.margin.left + 15, 22)
+				doc.text('Test Report with multiple pages', data.settings.margin.left, 22)
 
 				// Footer
 

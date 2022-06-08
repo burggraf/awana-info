@@ -14,7 +14,7 @@ const Scan: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref='/login' />
+            <IonBackButton defaultHref='/dashboard' />
           </IonButtons>
           <IonTitle>Scan QR Code</IonTitle>
         </IonToolbar>

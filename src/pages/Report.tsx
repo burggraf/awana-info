@@ -46,7 +46,7 @@ const Report: React.FC = () => {
 			<IonHeader>
 				<IonToolbar>
 					<IonButtons slot='start'>
-						<IonBackButton defaultHref='/login' />
+						<IonBackButton defaultHref='/dashboard' />
 					</IonButtons>
 					<IonTitle>Report Test</IonTitle>
 				</IonToolbar>

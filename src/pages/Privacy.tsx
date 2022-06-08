@@ -13,7 +13,7 @@ const Privacy: React.FC = () => {
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref='/login' />
+            <IonBackButton defaultHref='/dashboard' />
           </IonButtons>
           <IonTitle>Privacy Policy</IonTitle>
         </IonToolbar>

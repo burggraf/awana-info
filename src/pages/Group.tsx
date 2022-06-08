@@ -211,7 +211,7 @@ const Group: React.FC = () => {
 					<IonButtons slot='start'>
 						<IonBackButton defaultHref='/groups' />
 					</IonButtons>
-					<IonTitle>Group</IonTitle>
+					<IonTitle>{(id.substring(0,3) === 'new') ? 'Create New Group' : group?.name! || 'Group'}</IonTitle>
 					<IonButtons slot='end'>
 						<IonButton color='primary' onClick={save}>
 							<IonIcon size='large' icon={checkmarkOutline}></IonIcon>

@@ -13,7 +13,7 @@ import {
 import { Login, ResetPassword, User, SupabaseAuthService} from 'ionic-react-supabase-login';
 import { useEffect, useMemo, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
-import { barChartOutline, barChartSharp, peopleOutline, peopleSharp } from 'ionicons/icons';
+import { barChartOutline, barChartSharp, newspaperOutline, newspaperSharp, peopleOutline, peopleSharp, scanOutline, scanSharp } from 'ionicons/icons';
 import SupabaseDataService from '../services/supabase.data.service'
 
 import info from '../../package.json';
@@ -54,10 +54,17 @@ const Menu: React.FC = () => {
 			showIf: user !== null
 		},
 		{
+			title: 'Report',
+			url: '/report',
+			iosIcon: newspaperOutline,
+			mdIcon: newspaperSharp,
+			showIf: true
+		},
+		{
 			title: 'Scan',
 			url: '/scan',
-			iosIcon: peopleOutline,
-			mdIcon: peopleSharp,
+			iosIcon: scanOutline,
+			mdIcon: scanSharp,
 			showIf: true
 		},
 	], [user]);

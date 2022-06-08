@@ -30,8 +30,12 @@ import NotFound from './pages/NotFound'
 import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
 import Scan from './pages/Scan'
+import Report from './pages/Report'
 
-setupIonicReact()
+setupIonicReact({
+	// rippleEffect: false,
+	mode: 'ios',
+  });
 
 const App: React.FC = () => {
 	return (
@@ -53,6 +57,7 @@ const App: React.FC = () => {
 							<Route path='/privacy' exact={true} component={Privacy} />
 							<Route path='/terms' exact={true} component={Terms} />
 							<Route path='/scan' exact={true} component={Scan} />
+							<Route path='/report' exact={true} component={Report} />
 							<Route component={NotFound} />
 						</Switch>
 					</IonRouterOutlet>

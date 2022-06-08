@@ -28,6 +28,9 @@ import { checkmarkOutline } from 'ionicons/icons'
 import { useCallback, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 
+import { Grid } from 'gridjs-react'
+import "gridjs/dist/theme/mermaid.css";
+
 import SupabaseDataService from '../services/supabase.data.service'
 import UtilityFunctionsService from '../services/utility.functions.service'
 
@@ -211,7 +214,9 @@ const Group: React.FC = () => {
 					<IonButtons slot='start'>
 						<IonBackButton defaultHref='/groups' />
 					</IonButtons>
-					<IonTitle>{(id.substring(0,3) === 'new') ? 'Create New Group' : group?.name! || 'Group'}</IonTitle>
+					<IonTitle>
+						{id?.substring(0, 3) === 'new' ? 'Create New Group' : group?.name! || 'Group'}
+					</IonTitle>
 					<IonButtons slot='end'>
 						<IonButton color='primary' onClick={save}>
 							<IonIcon size='large' icon={checkmarkOutline}></IonIcon>
@@ -221,11 +226,6 @@ const Group: React.FC = () => {
 			</IonHeader>
 
 			<IonContent>
-				{/* <IonHeader collapse='condense'>
-					<IonToolbar>
-						<IonTitle size='large'>Group</IonTitle>
-					</IonToolbar>
-				</IonHeader> */}
 				<div className='ion-padding'>
 					<IonList>
 						<IonItem lines='none'>
@@ -263,61 +263,82 @@ const Group: React.FC = () => {
 						</IonItem>
 					</IonList>
 				</div>
-				{ (id.substring(0,3) !== 'new') &&
-				<div className='ion-padding'>
-					<div className='ion-padding' style={{ border: '1px solid' }}>
-						<div className='ion-padding'>
-							<IonList>
-								<IonItemDivider>Invite Users</IonItemDivider>
-								<IonItem>
-									<IonTextarea
-										placeholder='email1@host.com,email2@host.com'
-										value={inviteUsers}
-										onIonChange={(e) => setInviteUsers(e.detail.value!)}></IonTextarea>
-								</IonItem>
-								<IonItem>
-									<IonLabel>Access Level</IonLabel>
-									<IonSelect
-										value={inviteAccess}
-										placeholder='Select One'
-										onIonChange={(e) => setInviteAccess(e.detail.value)}>
-										<IonSelectOption value='admin'>admin</IonSelectOption>
-										<IonSelectOption value='user'>user</IonSelectOption>
-									</IonSelect>
-								</IonItem>
-							</IonList>
+				{id.substring(0, 3) !== 'new' && (
+					<div className='ion-padding'>
+						<div className='ion-padding' style={{ border: '1px solid' }}>
+							<div className='ion-padding'>
+								<IonList>
+									<IonItemDivider>Invite Users</IonItemDivider>
+									<IonItem>
+										<IonTextarea
+											placeholder='email1@host.com,email2@host.com'
+											value={inviteUsers}
+											onIonChange={(e) => setInviteUsers(e.detail.value!)}></IonTextarea>
+									</IonItem>
+									<IonItem>
+										<IonLabel>Access Level</IonLabel>
+										<IonSelect
+											value={inviteAccess}
+											placeholder='Select One'
+											onIonChange={(e) => setInviteAccess(e.detail.value)}>
+											<IonSelectOption value='admin'>admin</IonSelectOption>
+											<IonSelectOption value='user'>user</IonSelectOption>
+										</IonSelect>
+									</IonItem>
+								</IonList>
+							</div>
+							<div className='ion-padding'>
+								<IonButton expand='block' color='medium' onClick={doInviteUsers}>
+									Invite Users
+								</IonButton>
+								<IonGrid>
+									<IonRow key={'invites_header'}>
+										<IonCol>
+											<b>Email</b>
+										</IonCol>
+										<IonCol>
+											<b>Created At</b>
+										</IonCol>
+										<IonCol>
+											<b>Result</b>
+										</IonCol>
+									</IonRow>
+									{invites.map((invite: any) => {
+										const created_at = new Date(invite.created_at)
+										return (
+											<IonRow key={invite.id}>
+												<IonCol>{invite.email}</IonCol>
+												<IonCol>{created_at.toLocaleString()}</IonCol>
+												<IonCol>{invite.result || 'pending'}</IonCol>
+											</IonRow>
+										)
+									})}
+								</IonGrid>
+							</div>
 						</div>
-						<div className='ion-padding'>
-							<IonButton expand='block' color='medium' onClick={doInviteUsers}>
-								Invite Users
-							</IonButton>
-							<IonGrid>
-								<IonRow key={'invites_header'}>
-									<IonCol>
-										<b>Email</b>
-									</IonCol>
-									<IonCol>
-										<b>Created At</b>
-									</IonCol>
-									<IonCol>
-										<b>Result</b>
-									</IonCol>
-								</IonRow>
-								{invites.map((invite: any) => {
-									const created_at = new Date(invite.created_at)
-									return (
-										<IonRow key={invite.id}>
-											<IonCol>{invite.email}</IonCol>
-											<IonCol>{created_at.toLocaleString()}</IonCol>
-											<IonCol>{invite.result || 'pending'}</IonCol>
-										</IonRow>
-									)
-								})}
-							</IonGrid>
-						</div>
+						<Grid
+							data={[
+								['John', 'john@example.com'],
+								['Mike', 'mike@gmail.com'],
+								['Larry', 'larry@hotmail.com'],
+								['Ted', 'ted@homewares.net'],
+								['Lucy', 'llbader@swimmingsupply.com'],
+								['Linda', 'lindap@gmail.com'],
+								['Sara', 'sara_the_one@webelow.cc'],
+								['Bob', 'bbrown143@gmail.com'],
+								['Jane', 'topseller@realty-oregon.com'],
+								['Mary', 'mary_ann33@gmail.com']
+							]}
+							columns={['Name', 'Email']}
+							search={true}
+							sort={true}
+							pagination={{
+								enabled: true,
+								limit: 4,
+							}}
+						/>
 					</div>
-				</div>
-				}
+				)}
 			</IonContent>
 			{childGroupCount === 0 && (
 				<IonFooter>

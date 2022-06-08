@@ -52,7 +52,7 @@ const Groups: React.FC = () => {
 		if (parentid) {
 			history.push('/group/' + parentid)
 		} else {
-			history.push('/group')
+			history.push('/group/new')
 		}
 	}
 	return (

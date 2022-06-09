@@ -74,20 +74,18 @@ const GroupTree: React.FC = () => {
 						<IonTitle size='large'>Groups</IonTitle>
 					</IonToolbar>
 				</IonHeader> */}
-				<div className='ion-padding'>
+				<div className='xion-padding'>
 					<IonList>
 					{groups.map((group: any, idx: number) => {
 						return (
 							<IonItem key={group?.id} onClick={() => gotoTree(group?.id)} lines="full">
+								{ // repeat indent based on group.level
+									(group?.level > 0) &&
+									Array((group?.level || 0)).fill(0).map((_, index) => <IonIcon size="small" key={Math.random()} />)
+								}									
 								<IonLabel class="ion-text-wrap">
-									{ // repeat indent based on group.level
-										Array(group?.level).fill(0).map((_, index) => <IonIcon key={Math.random()} />)
-									}									
 									{group?.name}<br/>
 									<IonNote>
-										{ // repeat indent based on group.level
-											Array(group?.level).fill(0).map((_, index) => <IonIcon key={Math.random()} />)
-										}									
 										{group?.description}
 									</IonNote>
 								</IonLabel>

@@ -180,4 +180,13 @@ export default class SupabaseDataService {
     return { data, error: null };
   }
 
+  public async getGroupMembers(group_id: string) {
+    await this.connect();
+    const { data, error } = await supabase
+    .from('members')
+    .select('*')
+    .eq('group_id', group_id);
+    return { data, error };
+  }
+
 }

@@ -50,6 +50,7 @@ const Group: React.FC = () => {
 	const [inviteAccess, setInviteAccess] = useState<string>('user')
 	const [childGroupCount, setChildGroupCount] = useState<number>(-1)
 	const [initialized, setInitialized] = useState<boolean>(false)
+	const [members, setMembers] = useState<any[]>([])
 
 	let { id } = useParams<{ id: string }>()
 
@@ -115,6 +116,7 @@ const Group: React.FC = () => {
 			setGroup({ ...group, id: utilityFunctionsService.uuidv4() })
 		}
 		setInitialized(true)
+		getMembers();
 		return () => {
 			userSubscription.unsubscribe()
 		}
@@ -124,6 +126,22 @@ const Group: React.FC = () => {
 		if (user) {
 		}
 	}, [user])
+
+	const getMembers = async () => {
+		console.log('calling getMembers',id);
+		const { data, error } = 
+			await supabaseDataService.getGroupMembers(id);
+		if (error) {
+			console.error('error getting members', error)
+		} else {
+			console.log('members', data)
+			const x = data.map((member: any) => {
+				return [member.access,(member.firstname || '') + ' ' + (member.lastname || '')  ,member.email];
+			});
+			console.log('x', x);
+			setMembers(x);
+		}
+	};
 
 	const save = async () => {
 		if (group.name.trim() === '') {
@@ -318,19 +336,8 @@ const Group: React.FC = () => {
 							</div>
 						</div>
 						<Grid
-							data={[
-								['John', 'john@example.com'],
-								['Mike', 'mike@gmail.com'],
-								['Larry', 'larry@hotmail.com'],
-								['Ted', 'ted@homewares.net'],
-								['Lucy', 'llbader@swimmingsupply.com'],
-								['Linda', 'lindap@gmail.com'],
-								['Sara', 'sara_the_one@webelow.cc'],
-								['Bob', 'bbrown143@gmail.com'],
-								['Jane', 'topseller@realty-oregon.com'],
-								['Mary', 'mary_ann33@gmail.com']
-							]}
-							columns={['Name', 'Email']}
+							data={members}
+							columns={['Access', 'Name', 'Email']}
 							search={true}
 							sort={true}
 							pagination={{

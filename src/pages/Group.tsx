@@ -29,7 +29,8 @@ import { useCallback, useEffect, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 
 import { Grid } from 'gridjs-react'
-import "gridjs/dist/theme/mermaid.css";
+// import "gridjs/dist/theme/mermaid.css";
+import "../theme/mermaid.css";
 
 import SupabaseDataService from '../services/supabase.data.service'
 import UtilityFunctionsService from '../services/utility.functions.service'

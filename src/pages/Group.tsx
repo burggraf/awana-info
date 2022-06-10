@@ -118,13 +118,33 @@ const Group: React.FC = () => {
 			setGroup({ ...group, id: utilityFunctionsService.uuidv4() })
 		}
 		setInitialized(true)
-		if (!id.startsWith('new')) {
-			getMembers();
-		}
 		return () => {
 			userSubscription.unsubscribe()
 		}
 	}, [group, id, initialized, getInvitations])
+
+
+	useEffect(() => {
+		const getMembers = async () => {
+			console.log('calling getMembers',id);
+			const { data, error } = 
+				await supabaseDataService.getGroupMembers(id);
+			if (error) {
+				console.error('error getting members', error)
+			} else {
+				console.log('members', data)
+				const x = data.map((member: any) => {
+					return [member.access,(member.firstname || '') + ' ' + (member.lastname || '')  ,member.email];
+				});
+				console.log('x', x);
+				setMembers(x);
+			}
+		};
+	
+		if (!id.startsWith('new')) {
+			getMembers();
+		}
+	},[group,id])
 
 	useEffect(() => {
 		if (user) {
@@ -142,21 +162,6 @@ const Group: React.FC = () => {
 		}
 	}, [membersGrid])
 
-	const getMembers = async () => {
-		console.log('calling getMembers',id);
-		const { data, error } = 
-			await supabaseDataService.getGroupMembers(id);
-		if (error) {
-			console.error('error getting members', error)
-		} else {
-			console.log('members', data)
-			const x = data.map((member: any) => {
-				return [member.access,(member.firstname || '') + ' ' + (member.lastname || '')  ,member.email];
-			});
-			console.log('x', x);
-			setMembers(x);
-		}
-	};
 
 	const save = async () => {
 		if (group.name.trim() === '') {

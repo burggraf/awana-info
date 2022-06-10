@@ -25,10 +25,11 @@ import {
 } from '@ionic/react'
 import { SupabaseAuthService } from 'ionic-react-supabase-login'
 import { checkmarkOutline } from 'ionicons/icons'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useHistory, useParams } from 'react-router'
 
 import { Grid } from 'gridjs-react'
+// import { RowSelection } from "gridjs/plugins/selection";
 // import "gridjs/dist/theme/mermaid.css";
 import "../theme/mermaid.css";
 
@@ -42,6 +43,7 @@ const utilityFunctionsService = UtilityFunctionsService.getInstance()
 
 const Group: React.FC = () => {
 	const history = useHistory()
+	const membersGrid: any = useRef(null)
 	const [presentAlert] = useIonAlert()
 	const [user, setUser] = useState<any>(null)
 	const [group, setGroup] = useState<any>(null)
@@ -126,6 +128,17 @@ const Group: React.FC = () => {
 		if (user) {
 		}
 	}, [user])
+	useEffect(() => {
+		console.log('membersGrid useEffect');
+		if (membersGrid) {
+			membersGrid.current.instance.on('rowClick', (...args: any[]) => {
+				console.log('id', args[1].id);
+				for (let i=0; i < args[1].cells.length; i++) {
+					console.log(i, args[1].cells[i].data);
+				}
+			});
+		}
+	}, [membersGrid])
 
 	const getMembers = async () => {
 		console.log('calling getMembers',id);
@@ -336,8 +349,11 @@ const Group: React.FC = () => {
 							</div>
 						</div>
 						<Grid
+							ref={membersGrid}
 							data={members}
-							columns={['Access', 'Name', 'Email']}
+							columns={[
+								'Access', 'Name', 'Email',
+							]}
 							search={true}
 							sort={true}
 							pagination={{

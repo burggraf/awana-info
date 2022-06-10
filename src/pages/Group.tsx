@@ -118,7 +118,9 @@ const Group: React.FC = () => {
 			setGroup({ ...group, id: utilityFunctionsService.uuidv4() })
 		}
 		setInitialized(true)
-		getMembers();
+		if (!id.startsWith('new')) {
+			getMembers();
+		}
 		return () => {
 			userSubscription.unsubscribe()
 		}
@@ -130,7 +132,7 @@ const Group: React.FC = () => {
 	}, [user])
 	useEffect(() => {
 		console.log('membersGrid useEffect');
-		if (membersGrid) {
+		if (membersGrid?.current?.instance!) {
 			membersGrid.current.instance.on('rowClick', (...args: any[]) => {
 				console.log('id', args[1].id);
 				for (let i=0; i < args[1].cells.length; i++) {

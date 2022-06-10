@@ -41,6 +41,7 @@ ALTER TABLE IF EXISTS ONLY "public"."profile" DROP CONSTRAINT IF EXISTS "profile
 ALTER TABLE IF EXISTS ONLY "public"."invitations" DROP CONSTRAINT IF EXISTS "invitations_pkey";
 ALTER TABLE IF EXISTS ONLY "public"."groups" DROP CONSTRAINT IF EXISTS "group_pkey";
 ALTER TABLE IF EXISTS ONLY "public"."groups_access" DROP CONSTRAINT IF EXISTS "group_access_pkey";
+DROP VIEW IF EXISTS "public"."members";
 DROP TABLE IF EXISTS "public"."profile";
 DROP TABLE IF EXISTS "public"."invitations";
 DROP TABLE IF EXISTS "public"."groups_access";
@@ -49,6 +50,7 @@ DROP FUNCTION IF EXISTS "public"."invitations_reject"("target" "uuid");
 DROP FUNCTION IF EXISTS "public"."invitations_accept"("target" "uuid");
 DROP FUNCTION IF EXISTS "public"."handle_new_user"();
 DROP FUNCTION IF EXISTS "public"."groups_update_root_id"();
+DROP FUNCTION IF EXISTS "public"."groups_is_admin"("target" "uuid", "uid" "uuid");
 DROP FUNCTION IF EXISTS "public"."groups_insert_add_admin_trigger_function"();
 DROP FUNCTION IF EXISTS "public"."groups_get_tree_for_group"("target_group_id" "uuid");
 DROP FUNCTION IF EXISTS "public"."groups_get_root_id"("target" "uuid");
@@ -103,7 +105,7 @@ BEGIN
    IF (SELECT count(*) from groups where parent_id = target) > 0 THEN
       RAISE EXCEPTION 'children exist, cannot delete'; 
    END IF;
-   IF (SELECT count(*) from groups_access where group_id = target AND user_id = auth.uid() AND access = 'admin') = 0 THEN
+   IF NOT groups_is_admin(target,auth.uid()) THEN
       RAISE EXCEPTION 'admin access required to delete'; 
    END IF;
    DELETE FROM groups_access WHERE group_id = target;
@@ -233,6 +235,37 @@ $$;
 
 
 ALTER FUNCTION "public"."groups_insert_add_admin_trigger_function"() OWNER TO "supabase_admin";
+
+--
+-- Name: groups_is_admin("uuid", "uuid"); Type: FUNCTION; Schema: public; Owner: supabase_admin
+--
+
+CREATE FUNCTION "public"."groups_is_admin"("target" "uuid", "uid" "uuid") RETURNS boolean
+    LANGUAGE "sql"
+    AS $$
+WITH RECURSIVE hierarchy( id, parent_id ) 
+AS (
+  -- get child
+  SELECT id, parent_id, name
+  FROM groups
+  WHERE id = target
+
+  UNION ALL
+
+  -- get parents
+  SELECT t.id, t.parent_id, t.name
+  FROM hierarchy p
+  JOIN groups t
+  ON t.id = p.parent_id
+)
+select (select count(*) FROM hierarchy as h 
+  LEFT OUTER JOIN groups_access as g
+  ON g.group_id = h.id AND g.user_id = uid
+  WHERE g.access = 'admin') > 0;
+$$;
+
+
+ALTER FUNCTION "public"."groups_is_admin"("target" "uuid", "uid" "uuid") OWNER TO "supabase_admin";
 
 --
 -- Name: groups_update_root_id(); Type: FUNCTION; Schema: public; Owner: supabase_admin
@@ -416,6 +449,31 @@ CREATE TABLE "public"."profile" (
 
 
 ALTER TABLE "public"."profile" OWNER TO "supabase_admin";
+
+--
+-- Name: members; Type: VIEW; Schema: public; Owner: supabase_admin
+--
+
+CREATE VIEW "public"."members" AS
+ SELECT "groups_access"."group_id",
+    "groups_access"."access",
+    "profile"."id",
+    "profile"."email",
+    "profile"."firstname",
+    "profile"."lastname",
+    "profile"."phone",
+    "profile"."address",
+    "profile"."city",
+    "profile"."state",
+    "profile"."postal_code",
+    "profile"."bio",
+    "profile"."photo_url",
+    "profile"."xtra"
+   FROM ("public"."groups_access"
+     JOIN "public"."profile" ON (("profile"."id" = "groups_access"."user_id")));
+
+
+ALTER TABLE "public"."members" OWNER TO "supabase_admin";
 
 --
 -- Name: groups_access group_access_pkey; Type: CONSTRAINT; Schema: public; Owner: supabase_admin
@@ -701,6 +759,16 @@ GRANT ALL ON FUNCTION "public"."groups_insert_add_admin_trigger_function"() TO "
 
 
 --
+-- Name: FUNCTION "groups_is_admin"("target" "uuid", "uid" "uuid"); Type: ACL; Schema: public; Owner: supabase_admin
+--
+
+GRANT ALL ON FUNCTION "public"."groups_is_admin"("target" "uuid", "uid" "uuid") TO "postgres";
+GRANT ALL ON FUNCTION "public"."groups_is_admin"("target" "uuid", "uid" "uuid") TO "anon";
+GRANT ALL ON FUNCTION "public"."groups_is_admin"("target" "uuid", "uid" "uuid") TO "authenticated";
+GRANT ALL ON FUNCTION "public"."groups_is_admin"("target" "uuid", "uid" "uuid") TO "service_role";
+
+
+--
 -- Name: FUNCTION "groups_update_root_id"(); Type: ACL; Schema: public; Owner: supabase_admin
 --
 
@@ -778,6 +846,16 @@ GRANT ALL ON TABLE "public"."profile" TO "postgres";
 GRANT ALL ON TABLE "public"."profile" TO "anon";
 GRANT ALL ON TABLE "public"."profile" TO "authenticated";
 GRANT ALL ON TABLE "public"."profile" TO "service_role";
+
+
+--
+-- Name: TABLE "members"; Type: ACL; Schema: public; Owner: supabase_admin
+--
+
+GRANT ALL ON TABLE "public"."members" TO "postgres";
+GRANT ALL ON TABLE "public"."members" TO "anon";
+GRANT ALL ON TABLE "public"."members" TO "authenticated";
+GRANT ALL ON TABLE "public"."members" TO "service_role";
 
 
 --

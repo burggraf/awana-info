@@ -1,7 +1,7 @@
-DROP FUNCTION IF EXISTS groups_is_admin;
+DROP FUNCTION IF EXISTS groups_check_for_access;
 
 /* go up the heirarchy to see if this user is an admin at this level or any higher level */
-CREATE OR REPLACE FUNCTION groups_is_admin(target uuid, uid uuid)
+CREATE OR REPLACE FUNCTION groups_check_for_access(target uuid, uid uuid, access_level TEXT)
 RETURNS boolean as
 $$
 WITH RECURSIVE hierarchy( id, parent_id ) 
@@ -22,6 +22,6 @@ AS (
 select (select count(*) FROM hierarchy as h 
   LEFT OUTER JOIN groups_access as g
   ON g.group_id = h.id AND g.user_id = uid
-  WHERE g.access = 'admin') > 0;
+  WHERE g.access = access_level) > 0;
 $$
 LANGUAGE sql;

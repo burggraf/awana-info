@@ -188,5 +188,14 @@ export default class SupabaseDataService {
     .eq('group_id', group_id);
     return { data, error };
   }
+  // groups_check_my_access(target uuid, access_level TEXT)
+
+  public checkMyAccess = async (target: string, access_level: string) => {
+    await this.connect();
+    const { data, error } = await supabase
+    .rpc('groups_check_my_access', {target, access_level});
+    return { data, error };
+  }
+
 
 }

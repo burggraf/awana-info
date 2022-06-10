@@ -53,6 +53,7 @@ const Group: React.FC = () => {
 	const [childGroupCount, setChildGroupCount] = useState<number>(-1)
 	const [initialized, setInitialized] = useState<boolean>(false)
 	const [members, setMembers] = useState<any[]>([])
+	const [isAdmin, setIsAdmin] = useState<boolean>(false)
 
 	let { id } = useParams<{ id: string }>()
 
@@ -125,6 +126,17 @@ const Group: React.FC = () => {
 
 
 	useEffect(() => {
+		const checkMyAccess = async () => {
+			const { data, error } = await supabaseDataService.checkMyAccess(id, 'admin');
+			if (error) {
+				console.error('error getting my access', error)
+			} else {
+				console.log('checkMyAccess', data)
+				if (data) {
+					setIsAdmin(true)
+				}
+			}
+		}
 		const getMembers = async () => {
 			console.log('calling getMembers',id);
 			const { data, error } = 
@@ -142,6 +154,7 @@ const Group: React.FC = () => {
 		};
 	
 		if (!id.startsWith('new')) {
+			checkMyAccess();
 			getMembers();
 		}
 	},[group,id])
@@ -302,7 +315,7 @@ const Group: React.FC = () => {
 						</IonItem>
 					</IonList>
 				</div>
-				{id.substring(0, 3) !== 'new' && (
+				{(id.substring(0, 3) !== 'new' && isAdmin) && (
 					<div className='ion-padding'>
 						<div className='ion-padding' style={{ border: '1px solid' }}>
 							<div className='ion-padding'>
@@ -371,7 +384,7 @@ const Group: React.FC = () => {
 					</div>
 				)}
 			</IonContent>
-			{childGroupCount === 0 && (
+			{(childGroupCount === 0 && isAdmin) && (
 				<IonFooter>
 					<div className='ion-padding'>
 						<IonButton expand='block' color='danger' onClick={deleteGroup}>

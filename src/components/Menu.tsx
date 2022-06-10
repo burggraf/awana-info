@@ -54,6 +54,13 @@ const Menu: React.FC = () => {
 			showIf: user !== null
 		},
 		{
+			title: 'People',
+			url: '/people',
+			iosIcon: peopleOutline,
+			mdIcon: peopleSharp,
+			showIf: user !== null
+		},
+		{
 			title: 'Report',
 			url: '/report',
 			iosIcon: newspaperOutline,

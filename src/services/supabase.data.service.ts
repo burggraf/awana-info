@@ -197,5 +197,30 @@ export default class SupabaseDataService {
     return { data, error };
   }
 
+  public async getPerson(id: string) {
+    await this.connect();
+    const { data, error } = 
+    await supabase.from('persons')
+    .select('*')
+    .eq('id', id)
+    .limit(1)
+    .single();
+    return { data, error };
+  }
+  public async savePerson(person: any) {
+    person.updated_at = 'NOW()';
+    const { data, error } = 
+    await supabase.from('persons')
+    .upsert(person);
+    return { data, error };
+  }
+  public async getPeople() {
+    await this.connect();
+    const { data, error } = 
+    await supabase.from('persons')
+    .select('*');
+    return { data, error };
+  }
+
 
 }

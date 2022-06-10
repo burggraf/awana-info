@@ -31,6 +31,8 @@ import Privacy from './pages/Privacy'
 import Terms from './pages/Terms'
 import Scan from './pages/Scan'
 import Report from './pages/Report'
+import People from './pages/People'
+import Person from './pages/Person'
 
 setupIonicReact({
 	// rippleEffect: false,
@@ -58,6 +60,8 @@ const App: React.FC = () => {
 							<Route path='/terms' exact={true} component={Terms} />
 							<Route path='/scan' exact={true} component={Scan} />
 							<Route path='/report' exact={true} component={Report} />
+							<Route path='/people' exact={true} component={People} />
+							<Route path='/person/:id' exact={true} component={Person} />
 							<Route component={NotFound} />
 						</Switch>
 					</IonRouterOutlet>

@@ -1,8 +1,8 @@
-import { IonBackButton, IonButton, IonButtons, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonListHeader, IonLoading, IonPage, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
+import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonLabel, IonLoading, IonPage, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
 // import { User } from '@supabase/supabase-js'
-import { SupabaseAuthService } from 'ionic-react-supabase-login';
+// import { SupabaseAuthService } from 'ionic-react-supabase-login';
 import { checkmarkOutline, personOutline, personSharp } from 'ionicons/icons';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 
 import { Address as AddressObject } from '../../models/Models';
@@ -79,71 +79,48 @@ const Person: React.FC = () => {
     let { id } = useParams<{ id: string; }>();
     const isNew = (id === 'new');
 
-    const initPerson: PersonObject = {
-        id: id,
-        address: []
-        // uid?: string;
-        // firstname?: string;
-        // middlename?: string;
-        // lastname?: string;
-        // nickname?: string;
-        // company?: string;
-        // photourl?: string;
-        // dob?: string;
-        // anniversary?: string;
-        // notes?: string;
-        // created_at?: string;
-        // updated_at?: string;
-        // created_by?: string;
-        // metadata?: object;
-        // xtra?: object;
-        // email?: Email[];
-        // phone?: Phone[];
-        // url?: Url[];
-        // address?: Address[];
-        // relation?: Relation[];
-        // socialProfile?: SocialProfile[];
-        // instantMessage?: InstantMessage[];    
-    }
 
-    const loadPerson = async (id: string) => {
-        console.log('loadPerson...');
-        const { data, error } = await supabaseDataService.getPerson(id);
-        console.log('loadPerson...', data, 'error', error);
-        if (error) {
-            console.error('loadPerson error', error);
-        } else {
-            console.log('loadPerson data', data);
-            setPerson(data);
+
+	const [ person, setPerson ] = useState<PersonObject>({id, address:[]});
+
+    // const [ user, setUser ] = useState<any>(null);
+    // const [ profile, setProfile ] = useState<any>(null);
+
+
+    const init = useCallback(() => {
+    
+        const loadPerson = async (id: string) => {
+            console.log('loadPerson...');
+            const { data, error } = await supabaseDataService.getPerson(id);
+            console.log('loadPerson...', data, 'error', error);
+            if (error) {
+                console.error('loadPerson error', error);
+            } else {
+                console.log('loadPerson data', data);
+                setPerson(data);
+            }
+            setShowLoading(false);
         }
-        setShowLoading(false);
-    }
+            if (id === 'new') {
+            // id = utils.uuidv4();
+            const initPerson = {id, address:[]};
+            setPerson({...initPerson, id: utils.uuidv4()});
+            setShowLoading(false);
+        } else {
+            loadPerson(id);
+        }    
 
+    }, [id])
 
-	const [ person, setPerson ] = useState<PersonObject>(initPerson);
-
-    const [ user, setUser ] = useState<any>(null);
-    const [ profile, setProfile ] = useState<any>(null);
     useEffect(() => {
-        console.log('Person.useEffect...');
-      const userSubscription = SupabaseAuthService.subscribeUser(setUser);
-      const profileSubscription = SupabaseAuthService.subscribeProfile(setProfile);
-      console.log('useEffect: id', id);
-      if (id === 'new') {
-          id = utils.uuidv4();
-          setPerson({...initPerson, id: id});
-          setShowLoading(false);
-      } else {
-          loadPerson(id);
-      }    
-      console.log('useEffect: id', id);
-      console.log('user', user);
-      console.log('profile', profile);
+        init();
+        // const userSubscription = SupabaseAuthService.subscribeUser(setUser);
+        // const profileSubscription = SupabaseAuthService.subscribeProfile(setProfile);
       return () => {
-        SupabaseAuthService.unsubscribeUser(userSubscription);
-        SupabaseAuthService.unsubscribeProfile(profileSubscription);
+        // SupabaseAuthService.unsubscribeUser(userSubscription);
+        // SupabaseAuthService.unsubscribeProfile(profileSubscription);
     }
-  },[])
+  },[init])
 
     
     
@@ -547,6 +524,7 @@ const Person: React.FC = () => {
                                 console.error('deletePerson error', error);
                                 return;
                             } else {
+                                console.log('data', data);
                                 history.replace('/people');
                             }
                         }}>

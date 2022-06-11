@@ -5,7 +5,7 @@ import { useState } from 'react'
 
 import Modal from './Modal'
 import Select from './Select'
-import UtilityFunctionsService from '../services/utility.functions.service';
+//import UtilityFunctionsService from '../services/utility.functions.service';
 
 //import '../translations/i18n'
 import './GenericItemArrayEntry.css'
@@ -30,7 +30,7 @@ interface SelectOption {
     text?: string;
 }
 
-const utils = UtilityFunctionsService.getInstance()
+//const utils = UtilityFunctionsService.getInstance()
 
 const GenericItemArrayEntry: React.FC<ContainerProps> = ({ data, attributes, index, id, title, saveFunction, deleteFunction, types }) => {
 	// setShowModal({...showModal, currentModal: 'address'});
@@ -41,6 +41,7 @@ const GenericItemArrayEntry: React.FC<ContainerProps> = ({ data, attributes, ind
 		const item: any = { type: '' };
 		attributes.map((attr) => {
 			item[attr.name] = (attr.type === 'number') ? 0 : '';
+			return null;
 		})
 		return item;
 	}

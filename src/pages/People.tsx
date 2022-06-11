@@ -1,9 +1,9 @@
-import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonInput, IonItem, IonLabel, IonList, IonListHeader, IonLoading, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
+import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonLabel, IonLoading, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 // import { User } from '@supabase/supabase-js'
-import { SupabaseAuthService } from 'ionic-react-supabase-login';
+//import { SupabaseAuthService } from 'ionic-react-supabase-login';
 import { addOutline, addSharp, peopleOutline, peopleSharp } from 'ionicons/icons';
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useHistory } from 'react-router';
 
 import { Person as PersonObject } from '../../models/Person'
 import SupabaseDataService from '../services/supabase.data.service'
@@ -21,7 +21,11 @@ const People: React.FC = () => {
     const [showLoading, setShowLoading] = useState(true);
     const [ people, setPeople ] = useState<PersonObject[]>([]);
 
-    const loadPeople = async () => {
+    // const [ user, setUser ] = useState<any>(null);
+    // const [ profile, setProfile ] = useState<any>(null);
+    
+    useEffect(() => {
+      const loadPeople = async () => {
         const { data, error } = await supabaseDataService.getPeople();
         if (error) { 
             console.error('loadPeople: error', error)
@@ -29,19 +33,13 @@ const People: React.FC = () => {
             setPeople(data);
         }
         setShowLoading(false);
-
-    }
-    const [ user, setUser ] = useState<any>(null);
-    const [ profile, setProfile ] = useState<any>(null);
-    useEffect(() => {
-        loadPeople();
-      const userSubscription = SupabaseAuthService.subscribeUser(setUser);
-      const profileSubscription = SupabaseAuthService.subscribeProfile(setProfile);
-      console.log('user', user);
-      console.log('profile', profile);
+      }
+      loadPeople();
+      // const userSubscription = SupabaseAuthService.subscribeUser(setUser);
+      // const profileSubscription = SupabaseAuthService.subscribeProfile(setProfile);
       return () => {
-          SupabaseAuthService.unsubscribeUser(userSubscription);
-          SupabaseAuthService.unsubscribeProfile(profileSubscription);
+          // SupabaseAuthService.unsubscribeUser(userSubscription);
+          // SupabaseAuthService.unsubscribeProfile(profileSubscription);
       }
     },[])
    

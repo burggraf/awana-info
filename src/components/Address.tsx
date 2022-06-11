@@ -6,7 +6,7 @@ import { useState } from 'react'
 import { Address as AddressObject } from '../../models/Models'
 import Modal from '../components/Modal'
 import Select from '../components/Select'
-import UtilityFunctionsService from '../services/utility.functions.service';
+// import UtilityFunctionsService from '../services/utility.functions.service';
 
 // import '../translations/i18n'
 import './Address.css'
@@ -17,7 +17,7 @@ interface ContainerProps {
     saveFunction: Function;
     deleteFunction?: Function;
 }
-const utils = UtilityFunctionsService.getInstance()
+// const utils = UtilityFunctionsService.getInstance()
 
 const Address: React.FC<ContainerProps> = ({ data, index, saveFunction, deleteFunction }) => {
 	// setShowModal({...showModal, currentModal: 'address'});

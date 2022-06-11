@@ -1,5 +1,5 @@
 //import { useTranslation } from "react-i18next";
-import { IonItemOptions, IonSelect, IonSelectOption } from '@ionic/react'
+import { IonSelect, IonSelectOption } from '@ionic/react'
 
 //import "../translations/i18n";
 import './Select.css';

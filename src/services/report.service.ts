@@ -24,7 +24,7 @@ export default class ReportService {
 		   x: 30,
 		   y: 0,
  		});		
-        const f = (config.filename || 'report') + '.pdf';
+        // const f = (config.filename || 'report') + '.pdf';
         //doc.save(f)
         // doc.output('dataurlnewwindow');
         //doc.output('dataurlnewwindow', {filename: f});

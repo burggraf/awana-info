@@ -9,6 +9,7 @@ import {
 	IonToolbar,
 } from '@ionic/react'
 import ReportService from '../services/report.service'
+import {QRCodeCanvas} from 'qrcode.react';
 
 //import { useParams } from 'react-router';
 //import ExploreContainer from '../components/ExploreContainer';
@@ -16,6 +17,12 @@ import './Report.css'
 const reportService = ReportService.getInstance()
 
 const Report: React.FC = () => {
+	
+	const generateHTMLreport = () => {
+		const x: HTMLElement | null = document.getElementById('test');
+		reportService.generateHTMLreport(x, {filename: 'report1'});
+
+	}
 	const generateReport = () => {
         const obj = {
             title: 'My Report',
@@ -53,7 +60,32 @@ const Report: React.FC = () => {
 			</IonHeader>
 
             <IonContent className="ion-padding">
-				<IonButton onClick={generateReport}>Generate Report</IonButton>
+				<IonButton onClick={generateReport}>Generate Report</IonButton><br/>
+				<IonButton onClick={generateHTMLreport}>Generate HTML Report</IonButton><br/>
+				{/* <div id="test" style={{width:'5in',height:'5in',maxHeight:'5in',maxWidth:'5in'}}> */}
+				<div id="test">
+					<h1>Test</h1>
+					<table style={{width:'100%'}}>
+						<thead>
+							<tr style={{fontWeight:'bold'}}>
+								<td>Name</td>
+								<td>Email</td>
+								<td>Country</td>
+								<td>code</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>David Castlerock</td>
+								<td>askdjf@kasdjf.com</td>
+								<td>Sweden</td>
+								<td>
+								<QRCodeCanvas value="https://google.com/" />
+								</td>
+							</tr>								
+						</tbody>		
+					</table>
+				</div>
 			</IonContent>
 		</IonPage>
 	)

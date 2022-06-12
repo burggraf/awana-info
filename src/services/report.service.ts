@@ -13,6 +13,30 @@ export default class ReportService {
     }
 
     // constructor() {}
+	public generateHTMLreport = (html_obj: HTMLElement, config: any) => {
+		var doc = new jsPDF('p', 'pt', 'letter');
+
+		doc.html(html_obj, {
+		   callback: function (doc) {
+			 //doc.save();
+             window.open(doc.output('bloburl')); // to debug
+ 		   },
+		   x: 30,
+		   y: 0,
+ 		});		
+        const f = (config.filename || 'report') + '.pdf';
+        //doc.save(f)
+        // doc.output('dataurlnewwindow');
+        //doc.output('dataurlnewwindow', {filename: f});
+        //window.open(f);
+        //window.open(doc.output('datauristring', { filename: f }), '_blank');
+
+
+        
+        //window.open(doc.output('dataurlstring', { filename: f }), '_blank');
+
+
+    }
 
     /**
      * **************

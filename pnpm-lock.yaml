@@ -25,6 +25,7 @@ specifiers:
   ionicons: ^6.0.2
   jspdf: ^2.5.1
   jspdf-autotable: ^3.5.25
+  qrcode.react: ^3.0.2
   react: ^17.0.1
   react-dom: ^17.0.1
   react-qr-reader: 3.0.0-beta-1
@@ -70,6 +71,7 @@ dependencies:
   ionicons: 6.0.2
   jspdf: 2.5.1
   jspdf-autotable: 3.5.25_jspdf@2.5.1
+  qrcode.react: 3.0.2_react@17.0.2
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-qr-reader: 3.0.0-beta-1_sfoxds7t5ydpegc3knd667wn6m
@@ -8681,6 +8683,14 @@ packages:
     engines: {node: '>=0.6.0', teleport: '>=0.2.0'}
     dev: false
 
+  /qrcode.react/3.0.2_react@17.0.2:
+    resolution: {integrity: sha512-8F3SGxSkNb3fMIHdlseqjFjLbsPrF3WvF/1MOboSUUHytT537W8f/FtbdA3XFIHDrc+TrRBjTI/QLmwhAIGWWw==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 17.0.2
+    dev: false
+
   /qs/6.10.3:
     resolution: {integrity: sha512-wr7M2E0OFRfIfJZjKGieI8lBKb7fRCH4Fv5KNPEs7gJ8jadvotdsS08PzOKR7opXhZ/Xkjtt3WF9g38drmyRqQ==}
     engines: {node: '>=0.6'}
@@ -9095,7 +9105,7 @@ packages:
     dev: false
 
   /require-directory/2.1.1:
-    resolution: {integrity: sha1-jGStX9MNqxyXbiNE/+f3kqam30I=}
+    resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
     engines: {node: '>=0.10.0'}
     dev: false
 

@@ -19,7 +19,7 @@ export default class ReportService {
 		doc.html(html_obj, {
 		   callback: function (doc) {
 			 //doc.save();
-             window.open(doc.output('bloburl')); // to debug
+             window.open(doc.output('bloburl'), '_blank'); // to debug
  		   },
 		   x: 30,
 		   y: 0,

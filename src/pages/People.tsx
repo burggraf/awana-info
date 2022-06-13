@@ -58,7 +58,7 @@ const People: React.FC = () => {
           // SupabaseAuthService.unsubscribeUser(userSubscription);
           // SupabaseAuthService.unsubscribeProfile(profileSubscription);
       }
-    },[])
+    },[history])
 
     // useEffect(() => {
     //   if (peopleGrid?.current?.instance!) {

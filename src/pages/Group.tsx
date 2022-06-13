@@ -384,6 +384,7 @@ const Group: React.FC = () => {
 								enabled: true,
 								limit: 4,
 							}}
+							language={{'search':'🔍  Search...'}}
 						/>
 					</div>
 				)}

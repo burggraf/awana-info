@@ -1,7 +1,7 @@
 import { IonBackButton, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonInput, IonLabel, IonLoading, IonPage, IonTextarea, IonTitle, IonToolbar } from '@ionic/react';
 // import { User } from '@supabase/supabase-js'
 // import { SupabaseAuthService } from 'ionic-react-supabase-login';
-import { checkmarkOutline, personOutline, personSharp } from 'ionicons/icons';
+import { checkmarkOutline } from 'ionicons/icons';
 import { useCallback, useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 
@@ -156,8 +156,7 @@ const Person: React.FC = () => {
             <IonBackButton defaultHref="/people" />
           </IonButtons>
             <IonTitle>
-                <IonIcon size="large" ios={personOutline} md={personSharp}></IonIcon>
-              &nbsp;&nbsp;Edit Person Details
+                Person Details
             </IonTitle>
             <IonButtons slot='end'>
                 <IonButton color='primary' onClick={savePerson}>
@@ -172,12 +171,6 @@ const Person: React.FC = () => {
           <IonLoading isOpen={showLoading} message="Loading" />
             <table className="tbl">
                 <tbody>
-                {/* <IonListHeader>
-                    <IonLabel>
-                        <IonIcon size="large" ios={personOutline} md={personSharp}></IonIcon>
-                        &nbsp;&nbsp;Person Details
-                    </IonLabel>
-                </IonListHeader> */}
                 <tr>
                     <td className="labelColumn">
                     <IonLabel class="itemLabel">First Name</IonLabel>

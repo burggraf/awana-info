@@ -1,7 +1,7 @@
 import { IonButton, IonButtons, IonCol, IonContent, IonGrid, IonHeader, IonIcon, IonLabel, IonLoading, IonMenuButton, IonPage, IonRow, IonTitle, IonToolbar } from '@ionic/react';
 // import { User } from '@supabase/supabase-js'
 //import { SupabaseAuthService } from 'ionic-react-supabase-login';
-import { addOutline, addSharp, peopleOutline, peopleSharp } from 'ionicons/icons';
+import { addOutline, addSharp } from 'ionicons/icons';
 import { useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Grid } from 'gridjs-react'
@@ -68,8 +68,7 @@ const People: React.FC = () => {
             <IonMenuButton />
           </IonButtons>
             <IonTitle>
-                <IonIcon size="large" ios={peopleOutline} md={peopleSharp}></IonIcon>
-              &nbsp;&nbsp;People
+              People
             </IonTitle>
             <IonButtons slot='end'>
                 <IonButton color='dark' onClick={() => {history.push('/person/new')}}>
@@ -98,7 +97,8 @@ const People: React.FC = () => {
 								enabled: true,
 								limit: 15,
 							}}
-						/>
+              language={{'search':'🔍  Search...'}}
+              />
 
         <IonGrid key={'peopleList'}>
             {people.map((person: PersonObject) => {

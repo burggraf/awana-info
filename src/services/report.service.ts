@@ -14,17 +14,26 @@ export default class ReportService {
 
     // constructor() {}
 	public generateHTMLreport = (html_obj: HTMLElement, config: any) => {
-		var doc = new jsPDF('p', 'pt', 'letter');
+		var doc: any = new jsPDF('p', 'pt', 'letter');
+        const f = (config.filename || 'report') + '.pdf';
 
 		doc.html(html_obj, {
-		   callback: function (doc) {
-			 //doc.save();
-             window.open(doc.output('bloburl'), '_blank'); // to debug
+		   callback: function (doc: any) {
+                if (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase())) {
+                     doc.save(f)
+                } else {
+                    window.open(doc.output('bloburl', { filename: f }), '_blank');
+                }                
  		   },
 		   x: 30,
 		   y: 0,
  		});		
-        // const f = (config.filename || 'report') + '.pdf';
+
+         // window.open(doc.output('bloburl', { filename: f }), '_blank');
+
+         //window.open(doc.output('datauristring', { filename: f }), '_blank');
+        //doc.output('dataurlnewwindow');
+
         //doc.save(f)
         // doc.output('dataurlnewwindow');
         //doc.output('dataurlnewwindow', {filename: f});

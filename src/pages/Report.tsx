@@ -80,7 +80,9 @@ const Report: React.FC = () => {
 								<td>askdjf@kasdjf.com</td>
 								<td>Sweden</td>
 								<td>
-								<QRCodeCanvas value="https://google.com/" />
+								<QRCodeCanvas style={{width:'0.5in',height:'0.5in'}} 
+									value="https://google.com/" 
+								/>
 								</td>
 							</tr>								
 						</tbody>		

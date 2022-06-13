@@ -8,6 +8,7 @@ import { Grid } from 'gridjs-react'
 
 import { Person as PersonObject } from '../../models/Person'
 import SupabaseDataService from '../services/supabase.data.service'
+import GridService from '../services/grid.service'
 
 // import description from '../../package.json';
 // import version from '../../package.json';
@@ -16,6 +17,7 @@ import SupabaseDataService from '../services/supabase.data.service'
 import './People.css';
 
 const supabaseDataService = SupabaseDataService.getInstance()
+const gridService = GridService.getInstance()
 
 const People: React.FC = () => {
     const history = useHistory();
@@ -43,37 +45,15 @@ const People: React.FC = () => {
       loadPeople();
       // const userSubscription = SupabaseAuthService.subscribeUser(setUser);
       // const profileSubscription = SupabaseAuthService.subscribeProfile(setProfile);
-      if (peopleGrid?.current?.instance!) {
-        console.log('setting rowClickHandler');
-        peopleGrid.current.instance.on('rowClick', (...args: any[]) => {
-          const cells = args[1].cells;
-          // console.log('args', args);
-          // for (let i=0; i < args[1].cells.length; i++) {
-          //   console.log(i, args[1].cells[i].data);
-          // }
-          history.push(`/person/${cells[0].data}`);
-        });
-      }
+      gridService.setRowClickHandler(peopleGrid,(cells: any[]) => {
+        history.push(`/person/${cells[0]}`);
+      });
+
       return () => {
           // SupabaseAuthService.unsubscribeUser(userSubscription);
           // SupabaseAuthService.unsubscribeProfile(profileSubscription);
       }
     },[history])
-
-    // useEffect(() => {
-    //   if (peopleGrid?.current?.instance!) {
-    //     console.log('setting rowClickHandler');
-    //     peopleGrid.current.instance.on('rowClick', (...args: any[]) => {
-    //       console.log('args', args);
-    //       console.log('id', args[1].id);
-    //       for (let i=0; i < args[1].cells.length; i++) {
-    //         console.log(i, args[1].cells[i].data);
-    //       }
-    //       history.push(`/person/${args[1].cells[0].data}`)
-    //     });
-    //   }
-    // }, [people])
-  
    
     return (
     <IonPage>

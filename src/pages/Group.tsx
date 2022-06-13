@@ -31,15 +31,17 @@ import { useHistory, useParams } from 'react-router'
 import { Grid } from 'gridjs-react'
 // import { RowSelection } from "gridjs/plugins/selection";
 // import "gridjs/dist/theme/mermaid.css";
-import "../theme/mermaid.css";
+import '../theme/mermaid.css'
 
 import SupabaseDataService from '../services/supabase.data.service'
 import UtilityFunctionsService from '../services/utility.functions.service'
+import GridService from '../services/grid.service'
 
 import './Group.css'
 
 const supabaseDataService = SupabaseDataService.getInstance()
 const utilityFunctionsService = UtilityFunctionsService.getInstance()
+const gridService = GridService.getInstance()
 
 const Group: React.FC = () => {
 	const history = useHistory()
@@ -124,10 +126,9 @@ const Group: React.FC = () => {
 		}
 	}, [group, id, initialized, getInvitations])
 
-
 	useEffect(() => {
 		const checkMyAccess = async () => {
-			const { data, error } = await supabaseDataService.checkMyAccess(id, 'admin');
+			const { data, error } = await supabaseDataService.checkMyAccess(id, 'admin')
 			if (error) {
 				console.error('error getting my access', error)
 			} else {
@@ -138,43 +139,41 @@ const Group: React.FC = () => {
 			}
 		}
 		const getMembers = async () => {
-			console.log('calling getMembers',id);
-			const { data, error } = 
-				await supabaseDataService.getGroupMembers(id);
+			console.log('calling getMembers', id)
+			const { data, error } = await supabaseDataService.getGroupMembers(id)
 			if (error) {
 				console.error('error getting members', error)
 			} else {
 				console.log('members', data)
 				const x = data.map((member: any) => {
-					return [member.access,(member.firstname || '') + ' ' + (member.lastname || '')  ,member.email];
-				});
-				console.log('x', x);
-				setMembers(x);
+					return [
+						member.access,
+						(member.firstname || '') + ' ' + (member.lastname || ''),
+						member.email,
+					]
+				})
+				console.log('x', x)
+				setMembers(x)
 			}
-		};
-	
-		if (!id.startsWith('new')) {
-			checkMyAccess();
-			getMembers();
 		}
-	},[group,id])
+
+		if (!id.startsWith('new')) {
+			checkMyAccess()
+			getMembers()
+		}
+	}, [group, id])
 
 	useEffect(() => {
 		if (user) {
 		}
 	}, [user])
-	useEffect(() => {
-		console.log('membersGrid useEffect');
-		if (membersGrid?.current?.instance!) {
-			membersGrid.current.instance.on('rowClick', (...args: any[]) => {
-				console.log('id', args[1].id);
-				for (let i=0; i < args[1].cells.length; i++) {
-					console.log(i, args[1].cells[i].data);
-				}
-			});
-		}
-	}, [membersGrid])
 
+	useEffect(() => {
+		console.log('membersGrid useEffect')
+			gridService.setRowClickHandler(membersGrid, (cells: any[]) => {
+				console.log('membersGrid click', cells)
+			})
+	}, [membersGrid.current?.instance])
 
 	const save = async () => {
 		if (group.name.trim() === '') {
@@ -315,7 +314,7 @@ const Group: React.FC = () => {
 						</IonItem>
 					</IonList>
 				</div>
-				{(id.substring(0, 3) !== 'new' && isAdmin) && (
+				{id.substring(0, 3) !== 'new' && isAdmin && (
 					<div className='ion-padding'>
 						<div className='ion-padding' style={{ border: '1px solid' }}>
 							<div className='ion-padding'>
@@ -371,9 +370,7 @@ const Group: React.FC = () => {
 						<Grid
 							ref={membersGrid}
 							data={members}
-							columns={[
-								'Access', 'Name', 'Email',
-							]}
+							columns={['Access', 'Name', 'Email']}
 							search={true}
 							sort={true}
 							pagination={{
@@ -384,7 +381,7 @@ const Group: React.FC = () => {
 					</div>
 				)}
 			</IonContent>
-			{(childGroupCount === 0 && isAdmin) && (
+			{childGroupCount === 0 && isAdmin && (
 				<IonFooter>
 					<div className='ion-padding'>
 						<IonButton expand='block' color='danger' onClick={deleteGroup}>

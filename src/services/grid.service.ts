@@ -25,4 +25,22 @@ export default class GridService {
           }
       }
 
+      public setClickHandler = (grid: any, handler: Function) => {
+        if (grid?.current?.instance!) {
+            grid.current.instance.on('cellClick', (...args: any[]) => {
+                const columnData = args[1].data;
+                const columnInfo = args[2];                
+                const rowData = [];
+                const cellsArray = args[3].cells;
+                for (let i = 0; i < cellsArray.length; i++) {
+                    rowData.push(cellsArray[i].data);
+                }
+                handler({columnData, columnInfo, rowData});
+            });
+          } else {
+              console.error('setRowClickHandler: grid.current.instance is undefined');
+          }
+      }
+
+
 }

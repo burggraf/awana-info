@@ -45,8 +45,13 @@ const People: React.FC = () => {
       loadPeople();
       // const userSubscription = SupabaseAuthService.subscribeUser(setUser);
       // const profileSubscription = SupabaseAuthService.subscribeProfile(setProfile);
-      gridService.setRowClickHandler(peopleGrid,(cells: any[]) => {
-        history.push(`/person/${cells[0]}`);
+
+      // gridService.setRowClickHandler(peopleGrid,(cells: any[]) => {
+      //   history.push(`/person/${cells[0]}`);
+      // });
+      gridService.setClickHandler(peopleGrid,(obj: any) => {
+        // columnData, columnInfo, rowData
+        history.push(`/person/${obj.rowData[0]}`);
       });
 
       return () => {

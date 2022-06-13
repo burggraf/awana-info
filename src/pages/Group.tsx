@@ -170,9 +170,15 @@ const Group: React.FC = () => {
 
 	useEffect(() => {
 		console.log('membersGrid useEffect')
-			gridService.setRowClickHandler(membersGrid, (cells: any[]) => {
-				console.log('membersGrid click', cells)
-			})
+
+		gridService.setClickHandler(membersGrid,(obj: any) => {
+			// columnData, columnInfo, rowData
+			console.log('membersGrid click')
+			console.log('columnData', obj.columnData)
+			console.log('columnInfo', obj.columnInfo)
+			console.log('rowData', obj.rowData)
+		});
+	
 	}, [membersGrid.current?.instance])
 
 	const save = async () => {

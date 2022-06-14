@@ -41,10 +41,6 @@ setupIonicReact({
   });
   
 const App: React.FC = () => {
-	const RequireLogin: any = ({ children }: { children: JSX.Element }) => {
-		const auth = true;
-		return (auth ? children : <Redirect to='/dashboard' />);
-	  };
 	return (
 		<IonApp>
 			<IonReactRouter>
@@ -55,9 +51,7 @@ const App: React.FC = () => {
 							<Route path='/' exact={true}>
 								<Redirect to='/dashboard' />
 							</Route>
-							<RequireLogin>
-								<Route path='/profile' component={Profile} />
-							</RequireLogin>						
+							<Route path='/profile' component={Profile} />
 							<Route path='/dashboard' exact={true} component={Dashboard} />
 							<Route path='/groups' exact={true} component={Groups} />
 							<Route path='/group' exact={true} component={Group} />

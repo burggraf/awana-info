@@ -74,14 +74,14 @@ const Menu: React.FC = () => {
 				url: '/report',
 				iosIcon: newspaperOutline,
 				mdIcon: newspaperSharp,
-				showIf: true,
+				showIf: user !== null,
 			},
 			{
 				title: 'Scan',
 				url: '/scan',
 				iosIcon: scanOutline,
 				mdIcon: scanSharp,
-				showIf: true,
+				showIf: user !== null,
 			},
 		],
 		[user]

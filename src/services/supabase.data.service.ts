@@ -221,6 +221,14 @@ export default class SupabaseDataService {
     .select('*');
     return { data, error };
   }
+  public groups_get_my_root_groups = async () => {
+    console.log('groups_get_my_root_groups, 1')
+    await this.connect();
+    console.log('groups_get_my_root_groups, 2')
+    const { data, error } = await supabase
+    .rpc('groups_get_my_root_groups',{});
+    return { data, error };
+  }
 
 
 }

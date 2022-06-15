@@ -33,7 +33,6 @@ import Scan from './pages/Scan'
 import Report from './pages/Report'
 import People from './pages/People'
 import Person from './pages/Person'
-import SelectDefaultGroup from './pages/SelectDefaultGroup'
 
 setupIonicReact({
 	// rippleEffect: false,
@@ -63,7 +62,6 @@ const App: React.FC = () => {
 							<Route path='/report' exact={true} component={Report} />
 							<Route path='/people' exact={true} component={People} />
 							<Route path='/person/:id' exact={true} component={Person} />
-							<Route path='/selectdefaultgroup' exact={true} component={SelectDefaultGroup} />
 							<Route component={NotFound} />
 						</Switch>
 					</IonRouterOutlet>

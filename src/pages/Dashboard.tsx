@@ -12,6 +12,7 @@ const Dashboard: React.FC = () => {
 	const [user, setUser] = useState<User | null>(null)
 	const [profile, setProfile] = useState<any>(null)
 	const [invites, setInvites] = useState<any[]>([])
+	const [rootGroups, setRootGroups] = useState<any[]>([])
 	useEffect(() => {
 		const userSubscription = SupabaseAuthService.user.subscribe(setUser)
 		const profileSubscription = SupabaseAuthService.profile.subscribe(setProfile)
@@ -21,12 +22,23 @@ const Dashboard: React.FC = () => {
 			profileSubscription.unsubscribe()
 		}
 	}, [])
+
+
 	useEffect(() => {
-		if (user?.email) {
+		const getRootGroups = async () => {
+			const { data, error } = await supabaseDataService.groups_get_my_root_groups();
+			if (error) {
+				console.error('error getting groups', error);
+			} else {
+				setRootGroups(data);
+			}
+		}
+			if (user?.email) {
 			getMyInvitations(user?.email)
 		} else {
 			setInvites([])
 		}
+		getRootGroups();
 	}, [user])
   console.log('user, profile, invites', user, profile, invites)
 
@@ -63,6 +75,11 @@ const Dashboard: React.FC = () => {
 			window.location.reload();
 			// getMyInvitations((user?.id || '' as string));
 		}
+	}
+	const selectGroup = (group: any) => {
+		console.log('selectGroup', group?.group_id)
+		localStorage.setItem('currentGroup', JSON.stringify(group))
+		window.location.reload();
 	}
   	const getGroupInfo = async (group_id: string) => { console.log('getGroupInfo', group_id) }
 	return (
@@ -123,6 +140,14 @@ const Dashboard: React.FC = () => {
 							})}
 						</IonList>
 					)}
+				</div>
+				<div className='ion-padding'>
+					Select default group:
+					<IonList key="groupList">
+					{rootGroups.map((group: any) => {
+						return(<IonItem key={`groupid${group?.root_id}`} onClick={() => {selectGroup(group!)}} lines="none">{group?.name}</IonItem>)						
+					})}
+					</IonList>
 				</div>
 			</IonContent>
 		</IonPage>

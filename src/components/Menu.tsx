@@ -46,6 +46,8 @@ const Menu: React.FC = () => {
 	const [user, setUser] = useState<User | null>(null)
 	const [profile, setProfile] = useState<any>(null)
 	const [invites, setInvites] = useState<any[]>([])
+	const [currentGroup, setCurrentGroup] = useState<any>(null)
+
 	const pages = useMemo(
 		() => [
 			{
@@ -60,28 +62,28 @@ const Menu: React.FC = () => {
 				url: '/groups',
 				iosIcon: peopleOutline,
 				mdIcon: peopleSharp,
-				showIf: user !== null,
+				showIf: (user !== null && currentGroup !== null) ,
 			},
 			{
 				title: 'People',
 				url: '/people',
 				iosIcon: peopleOutline,
 				mdIcon: peopleSharp,
-				showIf: user !== null,
+				showIf: (user !== null && currentGroup !== null) ,
 			},
 			{
 				title: 'Report',
 				url: '/report',
 				iosIcon: newspaperOutline,
 				mdIcon: newspaperSharp,
-				showIf: user !== null,
+				showIf: (user !== null && currentGroup !== null) ,
 			},
 			{
 				title: 'Scan',
 				url: '/scan',
 				iosIcon: scanOutline,
 				mdIcon: scanSharp,
-				showIf: user !== null,
+				showIf: (user !== null && currentGroup !== null) ,
 			},
 		],
 		[user]
@@ -123,6 +125,8 @@ const Menu: React.FC = () => {
 		} else {
 			setInvites([])
 		}
+		const currentGroup = localStorage.getItem('currentGroup');
+		setCurrentGroup(currentGroup ? JSON.parse(currentGroup) : null)
 	}, [user, profile, pages])
 
 	const getMyInvitations = async (user_id: string) => {
@@ -196,6 +200,9 @@ const Menu: React.FC = () => {
 						}
 					})}
 				</IonList>
+				<div className='ion-padding'>
+					group: {currentGroup?.name || 'No Group'}
+				</div>
 				{/* <pre>
             { JSON.stringify(invites, null, 2) }
           </pre> */}

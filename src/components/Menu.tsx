@@ -86,7 +86,7 @@ const Menu: React.FC = () => {
 				showIf: (user !== null && currentGroup !== null) ,
 			},
 		],
-		[user]
+		[user, currentGroup]
 	)
 
 	const [appPages, setAppPages] = useState<AppPage[]>(pages)

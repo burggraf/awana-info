@@ -131,7 +131,7 @@ const Menu: React.FC = () => {
 	useEffect(()=> {
 		console.log('*** setAppPages', pages);
 		setAppPages(pages)
-	},[currentGroup])
+	},[currentGroup, pages])
 
 	const getMyInvitations = async (user_id: string) => {
 		if (!supabaseDataService.isConnected()) {

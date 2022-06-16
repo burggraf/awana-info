@@ -7,9 +7,9 @@ export default class SupabaseDataService {
 
 	static getInstance() {
 		if (this.myInstance === null) {
-      console.log('********************************************');
-      console.log('Creating new instance of SupabaseDataService');
-      console.log('********************************************');
+      // console.log('********************************************');
+      // console.log('Creating new instance of SupabaseDataService');
+      // console.log('********************************************');
 		  this.myInstance = new this();
       this.myInstance.connect();
 		}
@@ -222,9 +222,7 @@ export default class SupabaseDataService {
     return { data, error };
   }
   public groups_get_my_root_groups = async () => {
-    console.log('groups_get_my_root_groups, 1')
     await this.connect();
-    console.log('groups_get_my_root_groups, 2')
     const { data, error } = await supabase
     .rpc('groups_get_my_root_groups',{});
     return { data, error };

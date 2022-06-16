@@ -23,9 +23,7 @@ const Dashboard: React.FC = () => {
 		}
 	}, [])
 
-
 	useEffect(() => {
-		console.log('user is',user);
 		const getRootGroups = async () => {
 			const { data, error } = await supabaseDataService.groups_get_my_root_groups();
 			if (error) {
@@ -41,7 +39,7 @@ const Dashboard: React.FC = () => {
 		}
 		getRootGroups();
 	}, [user])
-  console.log('user, profile, invites', user, profile, invites)
+  // console.log('user, profile, invites', user, profile, invites)
 
 	const getMyInvitations = async (user_id: string) => {
 		if (!supabaseDataService.isConnected()) {
@@ -151,6 +149,11 @@ const Dashboard: React.FC = () => {
 					})}
 					<IonItem key={`clearGroup`} onClick={() => {selectGroup(null)}} lines="none">Clear Group</IonItem>
 					</IonList>
+				</div>
+				<div className='ion-padding' style={{display: 'none'}}>
+					<pre>
+					{ JSON.stringify(profile, null, 2) }
+					</pre>
 				</div>
 			</IonContent>
 		</IonPage>

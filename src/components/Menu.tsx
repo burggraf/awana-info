@@ -1,33 +1,14 @@
-import {
-	IonButton,
-	IonContent,
-	IonIcon,
-	IonItem,
-	IonLabel,
-	IonList,
-	IonListHeader,
-	IonMenu,
-	IonMenuToggle,
-	IonNote,
-} from '@ionic/react'
-import { Login, ResetPassword, User, SupabaseAuthService } from 'ionic-react-supabase-login'
+import { IonButton, IonContent, IonIcon, IonItem, IonLabel, IonList, IonListHeader, IonMenu, IonMenuToggle, IonNote } from '@ionic/react'
+import { Login, ResetPassword, SupabaseAuthService, User } from 'ionic-react-supabase-login'
+import { barChartOutline, barChartSharp, newspaperOutline, newspaperSharp, peopleOutline, peopleSharp, scanOutline, scanSharp } from 'ionicons/icons'
 import { useEffect, useMemo, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
-import {
-	barChartOutline,
-	barChartSharp,
-	newspaperOutline,
-	newspaperSharp,
-	peopleOutline,
-	peopleSharp,
-	scanOutline,
-	scanSharp,
-} from 'ionicons/icons'
-import SupabaseDataService from '../services/supabase.data.service'
 
 import info from '../../package.json'
+import SupabaseDataService from '../services/supabase.data.service'
 
 import './Menu.css'
+
 const supabaseDataService = SupabaseDataService.getInstance()
 
 interface AppPage {
@@ -115,7 +96,7 @@ const Menu: React.FC = () => {
 		if (lastUserID === user?.id || (lastUserID === null && user === null)) {
 			return // prevent looping, but looping will occur until setAppPages is finished
 		}
-		console.log('lastUserID', lastUserID)
+		// console.log('lastUserID', lastUserID)
 		if (user && profile) {
 		}
 		lastUserID = user?.id || null
@@ -129,7 +110,7 @@ const Menu: React.FC = () => {
 	}, [user, profile, pages])
 
 	useEffect(()=> {
-		console.log('*** setAppPages', pages);
+		// console.log('*** setAppPages', pages);
 		setAppPages(pages)
 	},[currentGroup, pages])
 
@@ -141,7 +122,7 @@ const Menu: React.FC = () => {
 		if (error) {
 			console.error('error getting my invitations', error)
 		} else {
-			console.log('getMyInvitations', data)
+			// console.log('getMyInvitations', data)
 			setInvites(data)
 		}
 	}

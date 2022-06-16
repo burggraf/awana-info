@@ -230,5 +230,20 @@ export default class SupabaseDataService {
     return { data, error };
   }
 
+  public updateUserSetting = async (name: string, value: any) => {
+    console.log('updateUserSetting', name, value);
+    const newData: any = {};
+    newData[name] = value;
+    const { user, error } = await supabase.auth.update({ 
+      // data: newData
+      data: { [name]: value }
+    });
+    if (error) {
+      console.error('updateUserSetting error', error)
+    } else {
+      console.log('updateUserSetting result (user):', user);
+    }
+    return { user, error };
+  }
 
 }

@@ -25,6 +25,7 @@ const Dashboard: React.FC = () => {
 
 
 	useEffect(() => {
+		console.log('user is',user);
 		const getRootGroups = async () => {
 			const { data, error } = await supabaseDataService.groups_get_my_root_groups();
 			if (error) {
@@ -76,9 +77,10 @@ const Dashboard: React.FC = () => {
 			// getMyInvitations((user?.id || '' as string));
 		}
 	}
-	const selectGroup = (group: any) => {
-		console.log('selectGroup', group?.group_id)
+	const selectGroup = async (group: any) => {
+		console.log('selectGroup', group)
 		localStorage.setItem('currentGroup', JSON.stringify(group))
+		await supabaseDataService.updateUserSetting('currentGroup', group);
 		window.location.reload();
 	}
   	const getGroupInfo = async (group_id: string) => { console.log('getGroupInfo', group_id) }
@@ -147,6 +149,7 @@ const Dashboard: React.FC = () => {
 					{rootGroups.map((group: any) => {
 						return(<IonItem key={`groupid${group?.root_id}`} onClick={() => {selectGroup(group!)}} lines="none">{group?.name}</IonItem>)						
 					})}
+					<IonItem key={`clearGroup`} onClick={() => {selectGroup(null)}} lines="none">Clear Group</IonItem>
 					</IonList>
 				</div>
 			</IonContent>

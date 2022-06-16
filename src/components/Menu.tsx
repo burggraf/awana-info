@@ -112,13 +112,12 @@ const Menu: React.FC = () => {
 		}
 	}, [])
 	useEffect(() => {
-		if (lastUserID === user?.id) {
+		if (lastUserID === user?.id || (lastUserID === null && user === null)) {
 			return // prevent looping, but looping will occur until setAppPages is finished
 		}
 		console.log('lastUserID', lastUserID)
 		if (user && profile) {
 		}
-		setAppPages(pages)
 		lastUserID = user?.id || null
 		if (user?.email) {
 			getMyInvitations(user?.email)
@@ -128,6 +127,11 @@ const Menu: React.FC = () => {
 		const currentGroup = localStorage.getItem('currentGroup');
 		setCurrentGroup(currentGroup ? JSON.parse(currentGroup) : null)
 	}, [user, profile, pages])
+
+	useEffect(()=> {
+		console.log('*** setAppPages', pages);
+		setAppPages(pages)
+	},[currentGroup])
 
 	const getMyInvitations = async (user_id: string) => {
 		if (!supabaseDataService.isConnected()) {

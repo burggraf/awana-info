@@ -43,7 +43,7 @@ const App: React.FC = () => {
 	return (
 		<IonApp>
 			<IonReactRouter>
-				<IonSplitPane contentId='main'>
+				<IonSplitPane when="(min-width: 99999px)" contentId='main'>
 					<Menu />
 					<IonRouterOutlet id='main'>
 						<Switch>
